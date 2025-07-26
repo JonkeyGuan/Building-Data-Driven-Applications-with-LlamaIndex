@@ -1,5 +1,10 @@
 from llama_index.core import SummaryIndex, Document
 from llama_index.core.schema import TextNode
+from llama_index.llms.google_genai import GoogleGenAI
+
+llm = GoogleGenAI(
+    model="gemini-2.0-flash",
+)
 
 nodes = [
   TextNode(
@@ -13,7 +18,7 @@ nodes = [
 ]
 index = SummaryIndex(nodes)
 
-query_engine = index.as_query_engine()
+query_engine = index.as_query_engine(llm=llm)
 response = query_engine.query(
     "What is Messi's hometown?"
 )

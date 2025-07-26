@@ -1,6 +1,8 @@
-from llama_index.llms.openai import OpenAI
+# from llama_index.llms.openai import OpenAI
+from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.core.settings import Settings
-Settings.llm = OpenAI(temperature=0.8, model="gpt-4")
+# Settings.llm = OpenAI(temperature=0.8, model="gpt-4")
+Settings.llm = GoogleGenAI(temperature=0.8, model="gemini-2.0-flash")
 
 from llama_index.core.schema import TextNode
 from llama_index.core import SummaryIndex
