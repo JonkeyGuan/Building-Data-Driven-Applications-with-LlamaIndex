@@ -5,6 +5,13 @@ from llama_index.core.schema import TextNode
 from llama_index.core import VectorStoreIndex
 from pydantic import BaseModel
 from typing import List
+from llama_index.llms.google_genai import GoogleGenAI
+from llama_index.embeddings.google_genai import GoogleGenAIEmbedding
+from llama_index.core.settings import Settings
+
+Settings.embed_model = GoogleGenAIEmbedding(
+    model_name="models/embedding-001"
+)
 
 nodes = [
     TextNode(
@@ -32,7 +39,8 @@ schemas = [
 lc_parser = StructuredOutputParser.from_response_schemas(schemas)
 output_parser = LangchainOutputParser(lc_parser)
 
-llm = OpenAI(output_parser=output_parser)
+# llm = OpenAI(output_parser=output_parser)
+llm = GoogleGenAI(model="gemini-2.0-flash", output_parser=output_parser)
 
 index = VectorStoreIndex(nodes=nodes)
 query_engine = index.as_query_engine(llm=llm)

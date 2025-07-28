@@ -4,6 +4,14 @@ from llama_index.core.query_engine import SubQuestionQueryEngine
 from llama_index.core.selectors import PydanticMultiSelector
 from llama_index.core.extractors import TitleExtractor
 from llama_index.core import SummaryIndex, SimpleDirectoryReader
+from llama_index.llms.google_genai import GoogleGenAI
+from llama_index.embeddings.google_genai import GoogleGenAIEmbedding
+from llama_index.core.settings import Settings
+
+Settings.llm = GoogleGenAI(model="gemini-2.0-flash")
+Settings.embed_model = GoogleGenAIEmbedding(
+    model_name="models/embedding-001"
+)
 
 documents = SimpleDirectoryReader("files/sample").load_data()
 title_extractor = TitleExtractor()
